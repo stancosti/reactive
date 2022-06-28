@@ -15,8 +15,8 @@ function App() {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.fetchInitialData());
-  }, []);
+      dispatch(actions.fetchInitialData());
+    }, []);
 
   return (
     <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -43,17 +43,21 @@ function App() {
         </nav>
       </div>
       <main className="mdl-layout__content">
-        <br />
-        <LandingPage />
-        <FilmDetails />
-        <PickSeats />
-        <br />
-        <NotFound />
-        <Checkout />
-        <br />
-        <Account></Account>
-        <Login />
-        <Logout />
+        {
+          <>
+            <LandingPage />
+            <br />
+            <FilmDetails />
+            <PickSeats />
+            <br />
+            <NotFound />
+            <Checkout />
+            <br />
+            <Account></Account>
+            <Login />
+            <Logout />
+          </>
+        }
       </main>
       <footer>
       </footer>

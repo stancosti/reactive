@@ -1,13 +1,15 @@
-export function LandingPage () {
-  console.log("LandingPage");
-  const styles = {};
+import { useSelector } from 'react-redux';
 
+export const LandingPage = () => {
+  const films = useSelector(state => state.films);
+  const showings = useSelector(state => state.showings);
+  const currentDate = new Date(useSelector(state => state.currentDate))
+  const film = films[0] || {};
   return (
     <>
-      <h1>Landing Page</h1>
       <section style={styles.header} className="mdl-card mdl-shadow--2dp">
         <div className="mdl-card__title">
-          <span className="mdl-card__title-text">Showings for today</span>
+          <span className="mdl-card__title-text">Showings for {currentDate.toShowingDateString()}</span>
         </div>
       </section>
       <section style={styles.filmsWrapper}>
@@ -15,12 +17,12 @@ export function LandingPage () {
         <section style={styles.wrapper} className="mdl-card mdl-shadow--2dp">
           <div style={styles.innerWrapper}>
             <div style={styles.posterDiv}>
-              <img src="POSTER_HERE" alt="" style={styles.poster} />
+              <img src={film.poster_path} alt="" style={styles.poster} />
             </div>
             <div style={styles.textDiv}>
-              <p style={styles.title}>Movie title here</p>
-              <p style={styles.runtimeP}>Runtime minutes</p>
-              <p style={styles.tagline}>Movie tagline here</p>
+              <p style={styles.title}>{film.title}</p>
+              <p style={styles.runtimeP}>{film.runtime} minutes</p>
+              <p style={styles.tagline}>{film.tagline}</p>
             </div>
           </div>
           <div style={styles.showings}>
@@ -32,3 +34,50 @@ export function LandingPage () {
     </>
   )
 }
+const styles = {
+  header: {
+    width: "95vw",
+    margin: "10px auto",
+    padding: "10px",
+  },
+  filmsWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  wrapper: {
+    width: '300px',
+    margin: '30px',
+    cursor: 'pointer',
+  },
+  innerWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  poster: {
+    maxWidth: '95%',
+    objectFit: 'contain',
+  },
+  posterDiv: {
+    flex: '1 1 25%',
+    padding: "5px",
+  },
+  textDiv: {
+    flex: '1 1 25%',
+    padding: "10px 5px 10px 5px",
+  },
+  title: {
+    fontSize: '1.75rem',
+    fontWeight: '900',
+    textTransform: 'uppercase',
+    margin: '2px',
+  },
+  tagline: {
+    margin: '2px',
+    lineHeight: '1em',
+  },
+  runtimeP: {
+    fontSize: "0.75rem",
+    margin: '2px',
+  },
+
+};

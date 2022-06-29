@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../store/actions';
 
 export const Account = () => {
   console.log("Account");
   const styles = {};
-  const showPassword = false;
+  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
+  function register(e) {
+    e.preventDefault();
+    alert("register");
+    const user = {
+      email: e.target['email'].value,
+      password: e.target['password'].value,
+      name: { given: e.target['given'].value, family: e.target['family'].value },
+      phone: e.target['phone'].value,
+      credit_card: {
+        number: e.target['number'].value,
+        expiration: e.target['expiration'].value
+        },
+      };
+    dispatch(actions.register(user));
+    }
 
   return (
     <>
@@ -13,7 +32,7 @@ export const Account = () => {
     <h1 className="mdl-card__title-text">Register</h1>
   </div>
   <div className="mdl-card__supporting-text">
-    <form>
+    <form onSubmit={e => register(e)}>
       <div style={styles.inputDivs}>
         <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input id="email" className="mdl-textfield__input" />
@@ -26,6 +45,7 @@ export const Account = () => {
           <input id="password" type={showPassword ? "text" : "password"} className="mdl-textfield__input" />
           <label className="mdl-textfield__label" htmlFor="password">Password</label>
         </div>
+        <span className="mdl-button mdl-js-button" onClick={e => setShowPassword(!showPassword)}>{showPassword ? "hide" : "show"}</span>
       </div>
 
       <div style={styles.inputDivs}>

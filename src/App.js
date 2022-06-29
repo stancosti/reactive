@@ -1,3 +1,9 @@
+import './App.css';
+import './helpers/Currency';
+import './helpers/Date';
+import 'material-design-lite/dist/material.min.css';
+import 'material-design-lite/dist/material.indigo-lime.min.css';
+import 'material-design-lite/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './store/actions';
@@ -11,7 +17,7 @@ import { Logout } from './authentication/Logout';
 import { Account } from './authentication/Account';
 
 function App() {
-  
+
   const state = useSelector(state => state);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,7 +28,7 @@ function App() {
     <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header className="mdl-layout__header">
         <div className="mdl-layout__header-row">
-          <a href="/" className="mdl-layout-title">Dinner and a Movie</a>
+          <a href="/" className="mdl-layout-title"  style={{ ...styles.navlink, ...styles.topMenuNavLink }} >Dinner and a Movie</a>
           <nav className="mdl-navigation mdl-layout--large-screen-only">
             <a href="/account" className="mdl-layout__tab">My account</a>
             <a href="/logout" className="mdl-layout__tab">logout</a>
@@ -33,7 +39,7 @@ function App() {
         </div>
       </header>
       <div className="mdl-layout__drawer">
-        <a href="/" className="mdl-layout-title">Dinner and a Movie</a>
+        <a href="/" className="mdl-layout-title" style={{...styles.navlink, ...styles.topMenuNavLink}}>Dinner and a Movie</a>
         <nav className="mdl-navigation">
           <a href="/account" className="mdl-layout__link">My account</a>
           <a href="/logout" className="mdl-layout__link">logout</a>
@@ -42,20 +48,25 @@ function App() {
           <a href="/register" className="mdl-layout__link">Register</a>
         </nav>
       </div>
-      <main className="mdl-layout__content">
+      <main className="mdl-layout__content" style={styles.pageContent}>
         {
           <>
             <LandingPage />
-            <br />
+            <hr/>
             <FilmDetails />
+            <hr/>
             <PickSeats />
-            <br />
+            <hr/>
             <NotFound />
+            <hr/>
             <Checkout />
-            <br />
+            <hr/>
             <Account></Account>
+            <hr/>
             <Login />
+            <hr/>
             <Logout />
+            <hr/>
           </>
         }
       </main>
@@ -63,6 +74,25 @@ function App() {
       </footer>
     </div>
   );
+
+  // console.log("1234567".toCurrency());
+}
+
+const styles = {
+  navlink: {
+    padding: '10px',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+  },
+  drawerNavLink: {
+    color: '#424242',
+  },
+  topMenuNavLink: {
+    color: 'white',
+  },
+  pageContent : {
+    backgroundColor: "indigo"
+  }
 }
 
 export default App;
